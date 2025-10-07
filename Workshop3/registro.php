@@ -8,9 +8,15 @@ try{
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $nombre = $_POST['nombre'];
-        $apellidos = $_POST['apellidos'];
-        $provincia = $_POST['provincia'];
+        // Obtener y limpiar espacios en blanco
+        $nombre = trim($_POST['nombre'] ?? '');
+        $apellidos = trim($_POST['apellidos'] ?? '');
+        $provincia = $_POST['provincia'] ?? '';
+
+        // Validar que no estén vacíos
+        if ($nombre === '' || $apellidos === '' || $provincia === '') {
+            die("Por favor, completa todos los campos correctamente.");
+        }
 
         $sql = "INSERT INTO usuarios (nombre, apellidos, provincia_id) VALUES (?, ?, ?)";
         $consulta = $conexion->prepare($sql);
