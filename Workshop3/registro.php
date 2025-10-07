@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 include ("conexion.php");
 
 
@@ -17,9 +18,9 @@ try{
 
 
         if ($consulta->execute()) {
-
-            $url = urlencode($nombre);
-            header("Location: login.php?usuario=$url");
+            
+            $_SESSION['usuario'] = $nombre;
+            header("Location: login.php");
             exit;
 
         } else {
